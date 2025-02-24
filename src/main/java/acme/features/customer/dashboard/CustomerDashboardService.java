@@ -2,6 +2,7 @@
 package acme.features.customer.dashboard;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,16 +29,16 @@ public class CustomerDashboardService extends AbstractService<Customer, Customer
 
 		CustomerDashboard customerDashboard = new CustomerDashboard();
 
-		// 1️ Últimos 5 destinos
+		// 1️⃣ Últimos 5 destinos
 		customerDashboard.setLastFiveDestinations(this.repository.findLastFiveDestinations(customerId));
 
-		// 2️ Dinero gastado en el último año
+		// 2️⃣ Dinero gastado en el último año
 		customerDashboard.setMoneySpentLastYear(this.repository.findMoneySpentLastYear(customerId));
 
-		// 3️ Número de reservas por clase de viaje
+		// 3️⃣ Número de reservas por clase de viaje
 		customerDashboard.setBookingsByTravelClass(this.repository.countBookingsByTravelClass(customerId));
 
-		// 4️ Estadísticas de costos de reservas en los últimos 5 años
+		// 4️⃣ Estadísticas de costos de reservas en los últimos 5 años
 		Object[] bookingStats = this.repository.getBookingCostStatsLastFiveYears(customerId);
 		customerDashboard.setBookingCount((Long) bookingStats[0]);
 		customerDashboard.setBookingAvgCost((BigDecimal) bookingStats[1]);
@@ -45,13 +46,27 @@ public class CustomerDashboardService extends AbstractService<Customer, Customer
 		customerDashboard.setBookingMaxCost((BigDecimal) bookingStats[3]);
 		customerDashboard.setBookingStdDevCost((BigDecimal) bookingStats[4]);
 
-		// 5️ Estadísticas del número de pasajeros en sus reservas
-		Object[] passengerStats = this.repository.getPassengersStats(customerId);
-		customerDashboard.setPassengerCount((Long) passengerStats[0]);
-		customerDashboard.setPassengerAvg((BigDecimal) passengerStats[1]);
-		customerDashboard.setPassengerMin((Long) passengerStats[2]);
-		customerDashboard.setPassengerMax((Long) passengerStats[3]);
-		customerDashboard.setPassengerStdDev((BigDecimal) passengerStats[4]);
+		// 5️⃣ Obtener número de pasajeros por reserva y calcular estadísticas en Java
+		List<Long> passengerCounts = this.repository.getPassengerCountsPerBooking(customerId);
+
+		if (!passengerCounts.isEmpty()) {
+			customerDashboard.setPassengerCount(passengerCounts.stream().mapToLong(Long::longValue).sum());
+			customerDashboard.setPassengerAvg(BigDecimal.valueOf(passengerCounts.stream().mapToLong(Long::longValue).average().orElse(0)));
+			customerDashboard.setPassengerMin(passengerCounts.stream().mapToLong(Long::longValue).min().orElse(0));
+			customerDashboard.setPassengerMax(passengerCounts.stream().mapToLong(Long::longValue).max().orElse(0));
+
+			// Cálculo de la desviación estándar
+			double avg = customerDashboard.getPassengerAvg().doubleValue();
+			double variance = passengerCounts.stream().mapToDouble(count -> Math.pow(count - avg, 2)).average().orElse(0);
+
+			customerDashboard.setPassengerStdDev(BigDecimal.valueOf(Math.sqrt(variance))); // Convertir a BigDecimal
+		} else {
+			customerDashboard.setPassengerCount(0L);
+			customerDashboard.setPassengerAvg(BigDecimal.ZERO);
+			customerDashboard.setPassengerMin(0L);
+			customerDashboard.setPassengerMax(0L);
+			customerDashboard.setPassengerStdDev(BigDecimal.ZERO);
+		}
 
 		super.getBuffer().addData(customerDashboard);
 	}

@@ -51,11 +51,11 @@ public interface CustomerDashboardRepository extends AbstractRepository {
 
 	// 5️⃣ Estadísticas del número de pasajeros en sus reservas
 	@Query("""
-		    SELECT COUNT(p), AVG(pCount), MIN(pCount), MAX(pCount), STDDEV(pCount)
-		    FROM (SELECT COUNT(p) AS pCount
-		          FROM Passenger p
-		          WHERE p.booking.customer.id = :customerId
-		          GROUP BY p.booking.id) AS groupedPassengers
+		    SELECT COUNT(p)
+		    FROM Passenger p
+		    WHERE p.booking.customer.id = :customerId
+		    GROUP BY p.booking.id
 		""")
-	Object[] getPassengersStats(@Param("customerId") int customerId);
+	List<Long> getPassengerCountsPerBooking(@Param("customerId") int customerId);
+
 }
