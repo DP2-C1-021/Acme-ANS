@@ -1,5 +1,5 @@
 
-package acme.entities.S2;
+package acme.realms;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import acme.client.components.basis.AbstractEntity;
+import acme.client.components.basis.AbstractRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "customers")
 
-public class Customer extends AbstractEntity {
+public class Customer extends AbstractRole {
 
 	// Serialisation identifier -----------------------------------------------
 

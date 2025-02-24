@@ -16,6 +16,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 import acme.client.components.basis.AbstractEntity;
+import acme.realms.Customer;
 import lombok.Getter;
 import lombok.Setter;
 
