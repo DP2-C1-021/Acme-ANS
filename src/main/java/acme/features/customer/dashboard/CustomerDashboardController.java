@@ -1,59 +1,46 @@
 
 package acme.features.customer.dashboard;
 
-import java.lang.reflect.Method;
-
-import javax.annotation.PostConstruct;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import acme.client.controllers.AbstractController;
-import acme.client.services.AbstractService;
-import acme.forms.CustomerDashboard;
-import acme.internals.controllers.ControllerMetadata;
 import acme.realms.Customer;
 
-@Controller
-public class CustomerDashboardController extends AbstractController<Customer, CustomerDashboard> {
+@RestController
+@RequestMapping("/api/customer-dashboard")
+public class CustomerDashboardController {
 
 	@Autowired
-	private CustomerDashboardService showService;
+	private CustomerDashboardService service;
 
 
-	@PostConstruct
-	protected void initialise() {
-		super.addBasicCommand("show", this.showService);
+	@GetMapping("/last-five-destinations")
+	public List<?> getLastFiveDestinations(@RequestParam final Customer customer) {
+		return this.service.getLastFiveDestinations(customer);
 	}
 
-	@Override
-	protected ControllerMetadata<Customer, CustomerDashboard> buildMetadata(final Class<?> clazz) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/money-spent-last-year")
+	public Double getMoneySpentLastYear(@RequestParam final Customer customer) {
+		return this.service.getMoneySpentLastYear(customer);
 	}
 
-	@Override
-	protected RequestMappingInfo buildMappingInfo(final String command) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/bookings-by-travel-class")
+	public List<Object[]> getBookingsByTravelClass(@RequestParam final Customer customer) {
+		return this.service.getBookingsByTravelClass(customer);
 	}
 
-	@Override
-	protected Method buildHandler() {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/booking-price-statistics")
+	public Object[] getBookingPriceStatistics(@RequestParam final Customer customer) {
+		return this.service.getBookingPriceStatistics(customer);
 	}
 
-	@Override
-	protected void redirect(final AbstractService<Customer, CustomerDashboard> service) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected Object buildResult(final AbstractService<Customer, CustomerDashboard> service) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/passenger-statistics")
+	public Object[] getPassengerStatistics(@RequestParam final Customer customer) {
+		return this.service.getPassengerStatistics(customer);
 	}
 }
