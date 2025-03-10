@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.S1;
+package acme.features.authenticated.S3;
 
 import javax.annotation.PostConstruct;
 
