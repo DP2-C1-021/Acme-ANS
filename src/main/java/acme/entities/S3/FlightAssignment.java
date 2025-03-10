@@ -1,5 +1,5 @@
 
-package acme.entities.S1;
+package acme.entities.S3;
 
 import java.time.LocalDateTime;
 
@@ -40,9 +40,13 @@ public class FlightAssignment extends AbstractEntity {
 	@ValidString(max = 255)
 	private String				remarks;
 
+	@ManyToOne(optional = false)
+	private FlightLeg			flightLeg;  // Relación con un tramo de vuelo
+
 	// Relationships ----------------------------------------------------------
 	@Mandatory
 	@Valid
 	@ManyToOne
 	private FlightCrewMember	flightCrewMember;
+
 }
