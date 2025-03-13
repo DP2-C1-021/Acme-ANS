@@ -17,4 +17,6 @@ user-account-agent-03,true,"UserIdentity{name: 'Agent3', surname: 'Assistance', 
 user-account-manager-01,true,"UserIdentity{name: 'Manager1', surname: 'Manager1', email: 'manager1@acme.com'}",manager1,manager1
 user-account-manager-02,true,"UserIdentity{name: 'Manager2', surname: 'Manager2', email: 'manager2@acme.com'}",manager2,manager2
 user-account-manager-03,true,"UserIdentity{name: 'Manager3', surname: 'Manager3', email: 'manager3@acme.com'}",manager3,manager3
-
+user-account-administrator-02,true,"UserIdentity{name: 'Admin', surname: 'Administrator', email: 'admin@acme.com'}",administrator1,administrator1
+user-account-administrator-03,true,"UserIdentity{name: 'Admin1', surname: 'Administrator', email: 'admin1@acme.com'}",administrator2,administrator2
+user-account-administrator-04,true,"UserIdentity{name: 'Admin2', surname: 'Administrator', email: 'admin2@acme.com'}",administrator3,administrator3
