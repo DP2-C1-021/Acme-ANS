@@ -88,10 +88,8 @@ public class FlightAssignmentCreateService extends AbstractGuiService<FlightCrew
 		}
 		if (leg != null)
 			this.checkPilotAndCopilotAssignment(flightAssignment);
-		if (!Duty.LEAD_ATTENDANT.equals(duty))
-			super.state(false, "duty", "acme.validation.FlightAssignment.NotFlightAttendant.message");
 		if (!AvailabilityStatus.AVAILABLE.equals(status))
-			super.state(false, "crewMember", "acme.validation.FlightAssignment.OnlyAvailableCanBeAssigned.message");
+			super.state(false, "flightCrewMember", "acme.validation.FlightAssignment.OnlyAvailableCanBeAssigned.message");
 	}
 
 	private boolean isLegCompatible(final FlightAssignment flightAssignment) {
