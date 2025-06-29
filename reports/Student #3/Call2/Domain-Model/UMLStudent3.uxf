@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>372</y>
+      <w>390</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Role&gt;&gt;
+FlightCrewMember
+--
++ employeeCode: String {Mandatory, ValidString(pattern="^[A-Z]{2,3}\\d{6}$", max=10), 	Column(unique = true, nullable = false)}
++ phoneNumber: String {Mandatory, ValidString(pattern="^\\+?\\d{6,15}$", max=16), Automapped}
++ languageSkills: String {Mandatory, ValidString(max=255, Automapped}
++ availabilityStatus: AvailabilityStatus {Mandatory, Enumerated(EnumType.STRING), Automapped}
++ salary: Money {Mandatory, ValidMoney(min=0), Automapped}
++ yearsOfExperience: Integer {Optional, ValidNumber(min=0, max=90,), Automapped}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>222</y>
+      <w>132</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Leg
+--
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>618</x>
+      <y>120</y>
+      <w>408</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+ActivityLog
+--
++ registrationMoment: Date {Mandatory, ValidMoment(past=true), Temporal(TemporalType.TIMESTAMP)}
++ typeOfIncident: String {Mandatory, ValidShortText, Automapped}
++ description: String {Mandatory, ValidString(min = 1, max = 255), Automapped}
++ severityLevel: Integer {Mandatory, ValidNumber(min=0, max=10), Automapped}
++ draftMode: boolean {Mandatory, Automapped}
+bg=green
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>12</y>
+      <w>408</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+FlightAssignment
+--
++ duty: Duty {Mandatory, Enumerated(EnumType.STRING), Automapped}
++ moment: Date {Mandatory, ValidMoment(past=true), Temporal(TemporalType.TIMESTAMP)}
++ currentStatus: AssignmentStatus {Mandatory, Enumerated(EnumType.STRING), Automapped}
++ remarks: String {Optional, ValidString(max=255),Automapped}
++ draftMode: boolean {Mandatory, Automapped}
+bg=green
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>96</y>
+      <w>78</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>Associated to ▼
+lt=&lt;-x
+m1=1
+m2=*
+
+</panel_attributes>
+    <additional_attributes>10.0;210.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>96</y>
+      <w>72</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>Belongs to ▼
+lt=&lt;-x
+m1=1
+m2=*
+
+</panel_attributes>
+    <additional_attributes>10.0;460.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>732</x>
+      <y>372</y>
+      <w>408</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+VisaRequirement
+--
++ passportCountry: String {Mandatory, ValidString, Automapped}
++ destinationCountry: String {Mandatory, ValidString, Automapped}
++ continent: String {Mandatory, ValidString, Automapped}
++ capital: String {Mandatory, ValidString, Automapped}
++ currency: String {Mandatory, ValidString, Automapped}
++ phoneCode: String {Optional, ValidString(pattern="^\+\d{1,5}$"), Automapped}
++ timezone: String {Optional, ValidString(pattern="^[+-]\d{2}:\d{2}$"), Automapped}
++ visaType: String {Mandatory, ValidString, Automapped}
++ stayDuration: String {Mandatory, ValidString, Automapped}
++ passportValidity: String {Mandatory, ValidString, Automapped}
++ additionalInfo: String {Optional, ValidString, Automapped}
++ officialLink: String {Optional, ValidString, Automapped}
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>282</x>
+      <y>570</y>
+      <w>132</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Airline
+--
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>468</y>
+      <w>66</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Belongs to ▼
+lt=&lt;-x
+m1=1
+m2=*
+
+</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>270</x>
+      <y>624</y>
+      <w>168</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Entidad desarrollada por otro compañero
+bg=blue
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>654</x>
+      <y>54</y>
+      <w>186</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>&lt; Reported in
+lt=&lt;-x
+m1=1
+m2=*
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;290.0;20.0;290.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>732</x>
+      <y>546</y>
+      <w>408</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Form&gt;&gt;
+FlightCrewDashboard
+--
++ lastFiveDestinations: List&lt;String&gt; {Mandatory, Valid}
++ activityLogCounts: Map&lt;String, Long&gt; {Mandatory, Valid}
++ colleaguesInLastStage: List&lt;FlightCrewMember&gt; {Mandatory, Valid}
++ member: FlightCrewMember {Mandatory, Valid}
++ assignmentsByStatus: Map&lt;AssignmentStatus, List&lt;FlightAssignment&gt;&gt; {Mandatory, Valid}
++ average: Double {Mandatory, ValidNumber(min=0)}
++ minimum: Double {Mandatory, ValidNumber(min=0)}
++ maximum: Double {Mandatory, ValidNumber(min=0)}
++ standardDesviation: Double {Mandatory, ValidNumber(min=0)}
+bg=cyan
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>192</x>
+      <y>312</y>
+      <w>96</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+AvailabilityStatus
+--
++ AVAILABLE
++ ON_VACATION
++ ON_LEAVE
+bg=LIGHT_GRAY
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>192</x>
+      <y>222</y>
+      <w>96</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+CurrentStatus
+--
++ CONFIRMED
++ PENDING
++ CANCELLED
+bg=LIGHT_GRAY
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>192</x>
+      <y>114</y>
+      <w>96</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+Duty
+--
++ PILOT
++ COPILOT
++ LEAD_ATTENDANT
++ CABIN_ATTENDANT
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>828</x>
+      <y>234</y>
+      <w>204</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>Esta entidad cuenta con un:
+
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = {
+		"passportCountry", "destinationCountry"
+	})
+})
+
+Se utiliza para evitar duplicaciones de requisitos
+de visado
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>342</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>402</x>
+      <y>276</y>
+      <w>168</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Entidad desarrollada por otro compañero
+bg=blue
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
