@@ -22,7 +22,7 @@ import acme.client.components.views.SelectChoices;
 import acme.client.helpers.PrincipalHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.Group.Airline;
+import acme.entities.group.Airline;
 import acme.realms.assistanceAgent.AssistanceAgent;
 
 @GuiService
@@ -58,9 +58,7 @@ public class AuthenticatedAssistanceAgentUpdateService extends AbstractGuiServic
 
 	@Override
 	public void bind(final AssistanceAgent object) {
-		assert object != null;
-
-		super.bindObject(object, "employeeCode", "spokenLanguages", "moment", "briefBio", "salary", "photoUrl", "airline");
+		super.bindObject(object, "employeeCode", "spokenLanguages", "briefBio", "salary", "photoUrl", "airline");
 	}
 
 	@Override

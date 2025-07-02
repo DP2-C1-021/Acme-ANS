@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import acme.client.components.principals.UserAccount;
 import acme.client.repositories.AbstractRepository;
-import acme.entities.Group.Airline;
+import acme.entities.group.Airline;
 import acme.realms.assistanceAgent.AssistanceAgent;
 
 @Repository
@@ -33,5 +33,8 @@ public interface AuthenticatedAssistanceAgentRepository extends AbstractReposito
 
 	@Query("select a from Airline a")
 	Collection<Airline> findAllAirlines();
+
+	@Query("select a from AssistanceAgent a where a.employeeCode =:employeeCode")
+	AssistanceAgent findAssistanceAgentByEmployeeCode(String employeeCode);
 
 }
